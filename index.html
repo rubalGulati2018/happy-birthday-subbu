@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Happy Birthday!</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(45deg, #FFB6C1, #FF69B4,#ebeb7a,#05cdff, #DA70D6, #FF1493);
+            color: white;
+            font-family: 'Luckiest Guy', cursive;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .content {
+            text-align: center;
+            z-index: 1;  
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 2rem;
+            text-shadow: 0 0 10px rgba(255,255,255,0.3);
+            animation: bounce 1s infinite alternate;
+            font-family: 'Luckiest Guy', cursive;
+        }
+
+        @keyframes bounce {
+            from { transform: translateY(0); }
+            to { transform: translateY(-10px); }
+        }
+
+        .scene {
+            width: 250px;
+            height: 250px;
+            margin: 2rem auto;
+            position: relative;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Animated Cake Styles */
+        .cake {
+            position: relative;
+            width: 180px;
+            height: 160px;
+            margin: 0 auto;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .plate {
+            width: 180px;
+            height: 20px;
+            background: #cfd8dc;
+            border-radius: 50%;
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            animation: glow 1s infinite alternate;
+        }
+
+        @keyframes glow {
+            from { box-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #ff69b4; }
+            to { box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #ff69b4; }
+        }
+
+        .layer {
+            position: absolute;
+            width: 180px;
+            height: 40px;
+            border-radius: 10px;
+            animation: layerPulse 2s infinite alternate;
+        }
+
+        @keyframes layerPulse {
+            from { transform: scale(1); }
+            to { transform: scale(1.02); }
+        }
+
+        .layer-1 {
+            bottom: 0;
+            background: #ff69b4;
+            height: 40px;
+        }
+
+        .layer-2 {
+            bottom: 40px;
+            background: #ff1493;
+            width: 160px;
+            left: 10px;
+            height: 35px;
+        }
+
+        .layer-3 {
+            bottom: 75px;
+            background: #ff69b4;
+            width: 140px;
+            left: 20px;
+            height: 30px;
+        }
+
+        .icing {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            animation: icingSparkle 1s infinite alternate;
+        }
+
+        @keyframes icingSparkle {
+            from { opacity: 0.7; }
+            to { opacity: 1; }
+        }
+
+        .candle {
+            width: 20px;
+            height: 40px;
+            background: linear-gradient(to bottom, #ffd700, #ffeb3b);
+            position: absolute;
+            bottom: 105px;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 1s ease;
+            border-radius: 5px;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+            z-index: 2;
+        }
+
+        .flame {
+            width: 20px;
+            height: 20px;
+            background: radial-gradient(#ff9800, #ff5722);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            position: absolute;
+            top: -15px;
+            left: 0;
+            animation: flicker 0.8s ease-in-out infinite alternate;
+            box-shadow: 0 0 20px #ff5722;
+        }
+
+        @keyframes flicker {
+            0% { transform: scale(1) rotate(-2deg); }
+            100% { transform: scale(0.9) rotate(2deg); }
+        }
+
+        .balloon {
+            position: absolute;
+            width: 40px;
+            height: 50px;
+            border-radius: 50%;
+            animation: float 3s ease-in-out infinite;
+            transition: opacity 0.5s;
+            opacity: 0;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(3deg); }
+            50% { transform: translateY(-30px) rotate(-3deg); }
+        }
+
+        .gift {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background: #ff4081;
+            border-radius: 5px;
+            animation: giftBounce 1s infinite alternate;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+
+        .gift::before {
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 50px;
+            background: #ff80ab;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .gift::after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 10px;
+            background: #ff80ab;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        @keyframes giftBounce {
+            from { transform: translateY(0); }
+            to { transform: translateY(-20px); }
+        }
+
+        /* Rest of the styles remain the same */
+        .light {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: white;
+            opacity: 0;
+            transition: opacity 2s;
+            animation: twinkle 1.5s infinite alternate;
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.2; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1.2); }
+        }
+
+        #button-container {
+            position: fixed;
+            bottom: 50px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            height: 50px;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            font-size: 20px;
+            background: linear-gradient(45deg, #ff4081, #e91e63);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            position: absolute;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(233, 30, 99, 0.4);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(233, 30, 99, 0.6);
+        }
+
+        .btn.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        #wish {
+            font-size: 22px;
+            max-width: 700px;
+            margin: 2rem auto;
+            opacity: 0;
+            transition: opacity 1s ease;
+            padding: 0 20px;
+            color: #000000;
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+            animation: wishFloat 2s infinite alternate;
+        }
+
+        @keyframes wishFloat {
+            from { transform: translateY(0); }
+            to { transform: translateY(-10px); }
+        }
+
+          /* Star Animation */
+          .star {
+            position: fixed;
+            width: 3px;
+            height: 3px;
+            background: white;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+            animation: twinkle 1.5s infinite alternate;
+        }
+
+        @keyframes twinkle {
+            from { transform: scale(1); opacity: 1; }
+            to { transform: scale(1.5); opacity: 0.3; }
+        }
+
+        /* Confetti Animation */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            pointer-events: none;
+            z-index: 0;
+            animation: confetti-fall 5s linear infinite;
+        }
+
+        @keyframes confetti-fall {
+            0% { 
+                transform: translateY(-100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% { 
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* Sparkle Effect */
+        .sparkle {
+            position: fixed;
+            width: 4px;
+            height: 4px;
+            background: rgb(249, 245, 245);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+            animation: sparkle 1s linear infinite;
+        }
+
+        @keyframes sparkle {
+            0% { transform: scale(0) rotate(0deg); opacity: 0; }
+            50% { transform: scale(1) rotate(180deg); opacity: 1; }
+            100% { transform: scale(0) rotate(360deg); opacity: 0; }
+        }
+
+
+        .floating-image {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 1;
+            animation: float 15s linear infinite;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+            object-fit: cover;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translate(0, 0) rotate(0deg) scale(1);
+            }
+            25% {
+                transform: translate(100px, 100px) rotate(90deg) scale(1.2);
+            }
+            50% {
+                transform: translate(200px, -100px) rotate(180deg) scale(1);
+            }
+            75% {
+                transform: translate(-100px, 200px) rotate(270deg) scale(1.2);
+            }
+            100% {
+                transform: translate(0, 0) rotate(360deg) scale(1);
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="content">
+        <h1>Happy Birthday Subbu! 🎉</h1>
+        <div class="scene">
+            <div class="cake">
+                <div class="plate"></div>
+                <div class="layer layer-1"></div>
+                <div class="layer layer-2"></div>
+                <div class="layer layer-3"></div>
+                <div class="candle">
+                    <div class="flame"></div>
+                </div>
+            </div>
+        </div>
+        <div id="button-container">
+            <button id="btn1" class="btn visible">✨ Let's Decorate</button>
+            <button id="btn2" class="btn">🎵 Play the Music</button>
+            <button id="btn3" class="btn">🎈 Fly with Balloons</button>
+            <button id="btn4" class="btn">🕯️ Light the Candle</button>
+            <button id="btn5" class="btn">💝 A Message for you</button>
+        </div>
+        <p id="wish">
+            Happy Birthday to my amazing best friend! Your friendship is a treasure and I cherish every moment of laughter and
+            support we’ve shared. You’re more than just a friend, you’re my family. May your birthday be as
+			fantastic and special as you are, filled with joy, love	and endless happy moments. Here’s to creating more unforgettable
+            memories and looking forward to a wonderful year ahead! A Very Happy Birthday Subbu!  🌟✨🎂
+        </p>
+    </div>
+
+    <script>
+
+        const imageUrls = [
+            'people.jpeg',
+            'people.jpeg',
+            'people.jpeg',
+            'people.jpeg',
+            'people.jpeg',
+            'people.jpeg'
+        ];
+        
+        function createFloatingImage() {
+            const img = document.createElement('img');
+            img.className = 'floating-image';
+            img.src = imageUrls[Math.floor(Math.random() * imageUrls.length)];
+            img.style.left = Math.random() * (window.innerWidth - 100) + 'px';
+            img.style.top = Math.random() * (window.innerHeight - 100) + 'px';
+            img.style.animationDelay = Math.random() * 5 + 's';
+            
+            // Random size between 40px and 80px
+            const size = 60;
+            img.style.width = size + 'px';
+            img.style.height = size + 'px';
+            
+            // Random animation duration between 15 and 25 seconds
+            const randomDuration = 15 + Math.random() * 10;
+            img.style.animationDuration = randomDuration + 's';
+            
+            document.body.appendChild(img);
+            
+            // Remove and recreate image after animation completes
+            setTimeout(() => {
+                img.remove();
+                createFloatingImage();
+            }, randomDuration * 1000);
+        }
+
+       
+        const audio = new Audio('hbd.mp3');
+        
+        function createStar() {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.left = Math.random() * 100 + 'vw';
+            star.style.top = Math.random() * 100 + 'vh';
+            document.body.appendChild(star);
+            setTimeout(() => star.remove(), 1500);
+        }
+       
+        function createConfetti() {
+            const confetti = document.createElement('div');
+            confetti.className = 'confetti';
+            confetti.style.left = Math.random() * 100 + 'vw';
+            confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+            document.body.appendChild(confetti);
+            setTimeout(() => confetti.remove(), 5000);
+        }
+
+        function createSparkle(x, y) {
+            const sparkle = document.createElement('div');
+            sparkle.className = 'sparkle';
+            sparkle.style.left = x + 'px';
+            sparkle.style.top = y + 'px';
+            document.body.appendChild(sparkle);
+            setTimeout(() => sparkle.remove(), 1000);
+        }
+
+        function createLight() {
+            const light = document.createElement('div');
+            light.className = 'light';
+            light.style.left = Math.random() * 100 + 'vw';
+            light.style.top = Math.random() * 100 + 'vh';
+            document.body.appendChild(light);
+            return light;
+        }
+
+        function createBalloon() {
+            const balloon = document.createElement('div');
+            balloon.className = 'balloon';
+            balloon.style.left = Math.random() * 80 + 10 + '%';
+            balloon.style.bottom = '-50px';
+            balloon.style.background = `hsl(${Math.random() * 360}, 70%, 50%)`;
+            document.body.appendChild(balloon);
+            
+            setTimeout(() => {
+                balloon.style.opacity = '1';
+                balloon.style.bottom = '100%';
+                balloon.style.transition = '3s ease-out';
+            }, 100);
+
+            setTimeout(() => balloon.remove(), 5000);
+        }
+
+        function createGift() {
+            const gift = document.createElement('div');
+            gift.className = 'gift';
+            gift.style.left = Math.random() * 100 + 'vw';
+            gift.style.top = Math.random() * 100 + 'vh';
+            document.body.appendChild(gift);
+            
+            setTimeout(() => {
+                gift.style.opacity = '1';
+            }, 100);
+
+            setTimeout(() => gift.remove(), 4000);
+        }
+
+        function showNextButton(currentId, nextId) {
+            const currentBtn = document.getElementById(currentId);
+            currentBtn.style.opacity = '0';
+            
+            setTimeout(() => {
+                currentBtn.style.visibility = 'hidden';
+                if (nextId) {
+                    const nextBtn = document.getElementById(nextId);
+                    nextBtn.style.visibility = 'visible';
+                    setTimeout(() => nextBtn.style.opacity = '1', 50);
+                }
+            }, 300);
+        }
+
+        const actions = [
+            {
+                id: 'btn1',
+                action: () => {
+                    const lights = Array.from({ length: 30 }, createLight);
+                    lights.forEach(light => light.style.opacity = '1');
+                     // Create initial set of floating images
+                    for (let i = 0; i < 10; i++) {
+                        createFloatingImage();
+                    }
+                    showNextButton('btn1', 'btn2');
+                }
+            },
+            {
+                id: 'btn2',
+                action: () => {
+                    audio.play();
+                    setInterval(createGift, 2000);
+                    showNextButton('btn2', 'btn3');
+                }
+            },
+            {
+                id: 'btn3',
+                action: () => {
+                    const balloonInterval = setInterval(createBalloon, 200);
+                    setTimeout(() => clearInterval(balloonInterval), 5000);
+                    showNextButton('btn3', 'btn4');
+                }
+            },
+            {
+                id: 'btn4',
+                action: () => {
+                    document.querySelector('.candle').style.opacity = '1';
+                    showNextButton('btn4', 'btn5');
+                }
+            },
+            {
+                id: 'btn5',
+                action: () => {
+                    document.getElementById('wish').style.opacity = '1';
+                    setInterval(createBalloon, 1000);
+                    setInterval(createGift, 3000);
+                    // var img = document.getElementById('floating-image');
+                    // img.remove();
+                    showNextButton('btn5', null);
+                }
+            }
+        ];
+
+        // Initialize buttons
+        for (let i = 2; i <= 5; i++) {
+            const btn = document.getElementById(`btn${i}`);
+            btn.style.opacity = '0';
+            btn.style.visibility = 'hidden';
+        }
+
+        // Add these to your existing button click handlers
+        document.getElementById('btn1').addEventListener('click', () => {
+            setInterval(createStar, 200);
+            setInterval(createConfetti, 300);
+            // setInterval(createGift, 400);
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if(Math.random() > 0.9) {
+                createSparkle(e.clientX, e.clientY);
+            }
+        });
+
+        // Add click handlers
+        actions.forEach(({id, action}) => {
+            document.getElementById(id).addEventListener('click', action);
+        });
+    </script>
+</body>
+</html>
