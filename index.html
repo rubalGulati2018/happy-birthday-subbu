@@ -3,7 +3,7 @@
 <head>
     <title>Happy Birthday!</title>
     <style>
-        
+
         * {
             margin: 0;
             padding: 0;
@@ -345,7 +345,7 @@
             pointer-events: none;
             z-index: 1;
             animation: float 15s linear infinite;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+            box-shadow: 0 8px 10px rgba(0,0,0,0.2);
             object-fit: cover;
         }
 
@@ -412,11 +412,12 @@
         function createFloatingImage() {
             const img = document.createElement('img');
             img.className = 'floating-image';
-            img.src = imageUrls[Math.floor(Math.random() * imageUrls.length)];
+            //img.src = imageUrls[Math.floor(Math.random() * imageUrls.length)];
             img.style.left = Math.random() * (window.innerWidth - 100) + 'px';
             img.style.top = Math.random() * (window.innerHeight - 100) + 'px';
             img.style.animationDelay = Math.random() * 5 + 's';
             
+
             // Random size between 40px and 80px
             const size = 60;
             img.style.width = size + 'px';
@@ -526,7 +527,7 @@
                     const lights = Array.from({ length: 30 }, createLight);
                     lights.forEach(light => light.style.opacity = '1');
                      // Create initial set of floating images
-                    for (let i = 0; i < 10; i++) {
+                    for (let i = 0; i < 15; i++) {
                         createFloatingImage();
                     }
                     showNextButton('btn1', 'btn2');
